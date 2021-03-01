@@ -1,0 +1,115 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+      body{
+        overflow-x: hidden;
+      }
+    </style>
+    <title>Codesk</title>
+</head>
+<body>
+    <!-- Image and text -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top flex-md-nowrap flex-wrap p-0"> <!-- -->
+        <a class="navbar-brand" href="">
+          <img src="{% static "/logo.png" %}" width="30" height="30" class="d-inline-block align-top" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" 
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto ">
+            <li class="nav-item">
+              <a class="nav-link" href="">Ask A Question</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="">Share A Note</a>
+            </li>
+              <li class="nav-item">
+                <a class="nav-link" href="">Question List</a>
+              </li>
+            <li class="nav-item">
+              <a class="nav-link" href="">Notes List</a>
+            </li>
+  
+          </ul>
+        
+          <form style="flex-grow: 1; padding-top: 15px;" method="POST">
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                  <span class="dropdown-toggle" role="button" data-toggle="dropdown" id="ddlv">Question</span>
+                  <div class="dropdown-menu">
+                    <option class="dropdown-item" onclick='ddl(this);'>Question</option> 
+                    <option class="dropdown-item" onclick='ddl(this);'>Notes</option> 
+                  </div>
+                  </div>
+                </div>
+                <input class="form-control" type="search" placeholder="Search" name="search">
+                <div class="input-group-append">
+                  <a class="input-group-btn"> <input type="submit" class="btn btn-primary" value="Search"/>{% csrf_token %}</a>
+                </div>
+              </div>
+              </form>
+
+            <ul class="navbar-nav mr-auto ">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+            </li> 
+            {% else %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'signup' %}">Resigter</a>
+            </li>        
+            {% endif %}
+            </ul>
+        </div>
+    </nav>
+      <hr>
+        {% block content %}
+
+        {% endblock %}
+        <hr>
+               
+      <footer>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    Copyright &copy; All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!--Scripts-->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" 
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+      integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script type=text/javascript>
+        function ddl(ctl){
+            var $this = $(ctl);
+            var id = document.getElementById("ddlv");
+            id.innerHTML= $this.text();
+        }
+    </script>
+</body>
+</html>
