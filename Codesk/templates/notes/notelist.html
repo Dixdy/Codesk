@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for id, title,tag, author in data %}
+
+    <form  method="GET" >
+        <button type="submit" class="btn" value="{{id}}" name = "link" style='color:blue;'>{{title}}</button>
+        <br>
+        <label> tags: {{tag}} </label>
+        <br>
+        <label>author: {{author}}</label>
+    </form>
+ {% endfor %}
+
+ <span class="dropdown-toggle" role="button" data-toggle="dropdown" id="filter" style="position: absolute-right;">Test</span>
+ <div class="dropdown-menu">
+   <option class="dropdown-item" onclick='ddl(this);'>Test</option> 
+   <option class="dropdown-item" onclick='ddl(this);'>Test1</option> 
+</div>
+
+{% endblock %}
