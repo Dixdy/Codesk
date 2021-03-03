@@ -8,7 +8,7 @@ def notelist(request):
     author = ['x', 'y', 'z', 's', 's']
 
     data = [ida, title, tag, author]
-    context = { 'values': data}
+    context = {'values': data}
     return render(request, 'notes/notelist.html',  context)
 
 def note(request):  

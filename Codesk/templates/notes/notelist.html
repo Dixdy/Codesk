@@ -5,17 +5,16 @@
 <div class="row">
     <div class="col">
         <table style="margin-left:auto; margin-right:auto;">
-            {% for row in values %}
+            {% for row in notes %}
                 <tr>
                     <td>
                     <form  action= "{% url 'note' %}" method="GET" >
-                        <button type="submit" class="btn" value="{{row.0}}" name = "link" style='color:blue;'>{{row.1}}</button>
+                        <button type="submit" class="btn" value="{{row.id}}" name = "link" style='color:blue;'>{{row.title}}</button>
                         <br>
-                        <label>{{row.2}}</label>
+                        <label>{{row.tag}}</label>
                         <br>
-                        <label>{{row.3}}</label>
+                        <label>{{row.author}}</label>
                         <br>
-                        
                     </form>
                     </td>
                 </tr>

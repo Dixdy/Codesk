@@ -18,21 +18,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for id, title,tag, author, commentsc in data %}
+                    {% for row in questions %}
                     <tr>
                         <td>
                             <form  action= "{% url 'thread' %}" method="GET" >
-                                <button type="submit" class="btn" value="{{id}}" name = "link" style='color:blue;'>{{title}}</button>
+                                <button type="submit" class="btn" value="{{row.id}}" name = "link" style='color:blue;'>{{row.title}}</button>
                             </form>
                         </td>
                         <td>
-                            {{author}}
+                            {{row.author}}
                         </td>
                         <td>
-                            {{tag}}
+                            {{row.tag}}
                         </td>
                         <td>
-                            {{commentsc}}
+                            {{row.}}
                         </td>
                     </tr>
                     {% endfor %}
