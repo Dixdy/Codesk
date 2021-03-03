@@ -63,3 +63,9 @@ def downVotes(idx):
     if a.votes>0:
         a.votes = a.votes - 1
         a.save()
+
+def allNotes():
+    return a.objects.all()
+
+def allQuestions():
+    return q.objects.all()
