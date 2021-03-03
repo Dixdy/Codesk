@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User as u
-from accounts.models import Question as q, QuesionComment as qc, Answer as a, AnswerComment as ac, Notes as n
+from accounts.models import Question as q, QuestionComment as qc, Answer as a, AnswerComment as ac, Notes as n
 from django.db.models import Q
 from functools import reduce 
 
@@ -18,9 +18,9 @@ def searchQuestion(input):
     #return a list of Question objects
 
 #Search for the comment of the question
-#qn refer to the content of the question
-def searchQuestionComment(qn):
-    return qc.objects.filter(belongs_to=q.objects.get(content=qn))
+#idx refer to the index of the question
+def searchQuestionComment(idx):
+    return qc.objects.filter(belongs_to=q.objects.get(id=idx))
     #return a list of QuestionComment objects
 
 #Add an answer to a question using content, belongs_to and author
@@ -30,15 +30,15 @@ def addAnswer(cnt, qn, aut):
     newAnswer.save()
 
 #Search for the answer of the question
-#qn refer to the content of the question  
-def searchAnswer(qn):
-    return a.objects.filter(belongs_to=q.objects.get(content=qn))
+#idx refer to the index of the question  
+def searchAnswer(idx):
+    return a.objects.filter(belongs_to=q.objects.get(id=idx))
     #return a list of Answer objects
 
 #Search for the comment of the answer
-#ans refer to the content of the answer
-def searchAnswerComment(ans):
-    return ac.objects.filter(content=a.objects.get(content=ans))
+#idx refer to the index of the answer
+def searchAnswerComment(idx):
+    return ac.objects.filter(content=a.objects.get(id=idx))
 
 #Adding a new notes
 def addNotes(cc, tle, cnt, aut):
@@ -51,15 +51,15 @@ def searchNotes(input):
     query = reduce(lambda x, y: x & y, queries)
     return n.objects.filter(query)
 
-#nts refer to the content of the notes used to identify the notes to upvotes
-def upVotes(nts):
-    a = n.objects.filter(content=nts)[0:1]
+#idx refer to the idx of the notes used to identify the notes to upvotes
+def upVotes(idx):
+    a = n.objects.filter(id=idx)[0:1]
     a.votes = a.votes + 1
     a.save()
 
-#nts refer to the content of the notes used to identify the notes to downvotes
-def downVotes(nts):
-    a = n.objects.filter(content=nts)[0:1]
+#idx refer to the index of the notes used to identify the notes to downvotes
+def downVotes(idx):
+    a = n.objects.filter(id=idx)[0:1]
     if a.votes>0:
         a.votes = a.votes - 1
         a.save()
