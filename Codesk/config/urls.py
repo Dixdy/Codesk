@@ -26,5 +26,6 @@ urlpatterns = [
     path('profile/', include('userprofile.urls')),
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('', include("uploader.urls")),
-    path('notelist/', include('note.urls')),
+    path('', include('note.urls')),
+    path('', include('questions.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)+static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
