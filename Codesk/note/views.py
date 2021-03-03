@@ -9,3 +9,6 @@ def notelist(request):
     context = zip(ida,title,tag,author)
     return render(request, 'notes/notelist.html', {'data': context})
 
+def note(request):
+    
+    return render(request, 'notes/note.html')
