@@ -12,7 +12,7 @@ def addQuestion(cc, tle, cnt, aut):
 #Search for a list of question using user's input
 def searchQuestion(input):
     keywords = input.split()
-    queries = [Q(content__contains=i) for i in keywords]
+    queries = [Q(content__icontains=i) | Q(title__icontains=i) | Q(coursecode__icontains=i) for i in keywords]
     query = reduce(lambda x, y: x & y, queries)
     return q.objects.filter(query)
     #return a list of Question objects
@@ -47,7 +47,7 @@ def addNotes(cc, tle, cnt, aut):
 
 def searchNotes(input):
     keywords = input.split()
-    queries = [Q(content__contains=i) for i in keywords]
+    queries = [Q(content__icontains=i) | Q(title__icontains=i) | Q(coursecode__icontains=i) for i in keywords]
     query = reduce(lambda x, y: x & y, queries)
     return n.objects.filter(query)
 
