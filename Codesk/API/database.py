@@ -65,7 +65,7 @@ def downVotes(idx):
         a.save()
 
 def allNotes():
-    return a.objects.all()
+    return n.objects.all()
 
 def allQuestions():
     return q.objects.all()

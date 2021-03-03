@@ -18,7 +18,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for row in questions %}
+                    {% for row in question %}
                     <tr>
                         <td>
                             <form  action= "{% url 'thread' %}" method="GET" >
@@ -29,10 +29,7 @@
                             {{row.author}}
                         </td>
                         <td>
-                            {{row.tag}}
-                        </td>
-                        <td>
-                            {{row.}}
+                            {{row.tags}}
                         </td>
                     </tr>
                     {% endfor %}

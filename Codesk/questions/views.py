@@ -1,13 +1,14 @@
 from django.shortcuts import render
+from API import search
 
 # Create your views here.
 def questionlist(request):
-    ida = [1,2,3,4,5]
-    title = ['testq','testq2','testq3','testq4','testq5']
-    tag = ['a', 'b', 'c', 'd', 'e']
-    author = ['x', 'y', 'z', 's', 's']
-    commentsc = [4,5,7,8,20]
-    context = {"id": ida, 'title': title, 'tag': tag, 'author': author, 'comment': commentsc}
+    if request.method == "POST":
+        if 'searchword' in request.POST:
+            context = search.searchbar(request)
+            return render(request, 'results.html', context)   
+ 
+    context = search.allqns(request)
     return render(request, 'questions/questionlist.html',  context)
 
 def questionthread(request):
