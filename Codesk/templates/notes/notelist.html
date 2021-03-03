@@ -2,21 +2,50 @@
 
 {% block content %}
 
-{% for id, title,tag, author in data %}
-
-    <form  method="GET" >
-        <button type="submit" class="btn" value="{{id}}" name = "link" style='color:blue;'>{{title}}</button>
-        <br>
-        <label> tags: {{tag}} </label>
-        <br>
-        <label>author: {{author}}</label>
-    </form>
- {% endfor %}
-
- <span class="dropdown-toggle" role="button" data-toggle="dropdown" id="filter" style="position: absolute-right;">Test</span>
- <div class="dropdown-menu">
-   <option class="dropdown-item" onclick='ddl(this);'>Test</option> 
-   <option class="dropdown-item" onclick='ddl(this);'>Test1</option> 
+<div class="row">
+    <div class="col">
+        <table style="margin-left:auto; margin-right:auto;">
+            {% for id, title,tag, author in data %}
+                <tr>
+                    <td>
+                    <form  action= "{% url 'note' %}" method="GET" >
+                        <button type="submit" class="btn" value="{{id}}" name = "link" style='color:blue;'>{{title}}</button>
+                        <br>
+                        <label> tags: {{tag}} </label>
+                        <br>
+                        <label>author: {{author}}</label>
+                        <br>
+                        <label>contents:</label>
+                        <br>
+                    </td>
+                    </form>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col">
+        <table style="margin-left:auto; margin-right:auto;">
+            <tr>
+                <th>
+                    <label> Filter by: </label>
+                    <br>
+                    <input type="checkbox" id="School"> 
+                    <label>  School: </label> 
+                    <input type="text" for="School">
+                    <br>
+                    <input type="checkbox" id="CourseCode"> 
+                    <label>  Course Code: </label> 
+                    <input type="text" for="CourseCode">
+                    <br>
+                    <input type="checkbox" id="User"> 
+                    <label>  User: </label> 
+                    <input type="text" for="User">
+                    <br>
+                    <button class="btn-secondary" type="submit">Filter</button>
+                </th>
+            </tr>
+        </table>
+    </div>
 </div>
 
 {% endblock %}
