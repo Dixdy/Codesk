@@ -1,6 +1,30 @@
 {% extends 'base.html' %}
-
+{% block title %} Note {% endblock %}
 {% block content %}
-
-note
+<div class="row">
+    <div class="col">
+        <table style="margin-left:auto; margin-right:auto;">
+                <tr>
+                    <td>
+                        <h1> THIS IS A NOTE </h1>
+                    </td>
+                </tr>
+        </table>
+    </div>
+    <div class="col">
+        <table style="margin-left:auto; margin-right:auto;">
+            <tr>
+                <th>
+                    <input type="radio" id="PDF" name="filetype" checked>
+                    <label for="PDF">PDF</label><br>
+                    <input type="radio" id="PPT" name="filetype">
+                    <label for="PPT">PowerPoint</label><br>
+                    <input type="radio" id="image" name="filetype">
+                    <label for="image">Image</label><br>
+                    <button class="btn-secondary" type="submit">Download Notes</button>
+                </th>
+            </tr>
+        </table>
+    </div>
+</div>
 {% endblock %}
