@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %} Thread {% endblock %}
+{% block content %}
+<div class="container" style="align-items: center;">
+    <div class="row pag">
+        <div class="col-lg-12 col-lg-offset-0">
+            <div class="card">
+            <label style="font-size: 50px; align-self: center;" class="card-title" >Title</label> 
+            <div class="row" style="align-self: center;">
+                <label style="align-self: flex-start;">Tags: </label>
+                <label style="align-self: flex-end;">Author:  </label>
+            </div>
+            <div class="col-lg-12">
+                <p style="font-size: 30px;" class="card-text">Question</p>
+            </div>
+        </div> 
+        </div>
+        <div class="col-lg-12 col-lg-offset-0">
+            <div class="card">
+                comments
+                <button class="btn btn-link" onclick="addcomment()" id="reply">Add Comment</button>
+                <input class="text" id="replyb" hidden ></input>
+                <button class="btn btn-secondary" id="replys" onclick="submitcomment()" style="width: 200px; align-self: flex-end;" hidden>Add Comment</button>
+            </div>  
+    </div>
+
+    <div class="col-lg-12 col-lg-offset-0">
+        <h3>  Answers </h3>
+        <div class="card">
+            --Answer--
+            <button class="btn btn-link" onclick="addcomment()" id="reply">Add Comment</button>
+            <input class="text" id="replyb" hidden ></input>
+            <button class="btn btn-secondary" id="replys" onclick="submitcomment()" style="width: 200px; align-self: flex-end;" hidden>Add Comment</button>
+        </div>
+    </div>
+    <div class="col-lg-12 col-lg-offset-0">
+        <div>
+             
+        </div>
+        <h3>Submit Answer</h3><br>
+        <div class="card" >
+            <input class="text" id="Answer" style="width: 100; height: 100;"></input>
+            <button class="btn btn-secondary" id="submitAns" onclick="" style="width: 200px; align-self: flex-end;">Submit</button>
+        </div>
+    </div>
+</div>
+</div>
+<script type=text/javascript>
+    function addcomment(){
+        document.getElementById("reply").hidden = true;
+        document.getElementById("replyb").hidden = false;
+        document.getElementById("replys").hidden = false;
+    }
+    function submitcomment(){
+        document.getElementById("reply").hidden = false;
+        document.getElementById("replyb").hidden = true;
+        document.getElementById("replys").hidden = true;
+    }
+</script>
+
+{% endblock %}
