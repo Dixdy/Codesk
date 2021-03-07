@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load widget_tweaks %}
 
-{% block title %} Home {% endblock %}
+{% block title %} uploadquestion {% endblock %}
 
 {% block extrahead %} {% endblock %}
 
@@ -28,6 +28,12 @@
             $('#img_detail_modal').modal('toggle');
         }
 
+        function showAlert(){
+            if($("#myAlert").find("div#myAlert2").length==0){
+                $("#myAlert").append("<div class='alert alert-success alert-dismissable' id='myAlert2'> <button type='button' class='close' data-dismiss='alert'  aria-hidden='true'>&times;</button> Success! Question sent successfully.</div>");
+            }
+            $("#myAlert").css("display", "");
+        }
 
     </script>
 
@@ -37,14 +43,13 @@
 {% block content %}
 
     <div class="mt-5 text-center">
-        <h1>OCR web</h1>
+        <h1>Ask A Question</h1>
     </div>
-
     <div class="input-group input-group-lg">
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-lg">Enter text</span>
         </div>
-        <textarea class="form-control" aria-label="With textarea" rows="10">{% with image_last as ocr_text %}{% with ocr_text.ocrtext_set.last as test %}{{test.text}}{% endwith %}
+        <textarea class="form-control" aria-label="With textarea" id="txtbx" rows="10">{% with image_last as ocr_text %}{% with ocr_text.ocrtext_set.last as test %}{{test.text}}{% endwith %}
         {% endwith %} </textarea>
     </div>
     </div>
@@ -54,15 +59,23 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <div class="custom-file my-2">
-                    {{image_form.image|add_class:"custom-file-input"}}
                     <label class="custom-file-label">{{ image_form.image.label }}</label>
                     {% for error in field.errors %}
                         <span class="badge badge-danger">{{ error }}</span>
                     {% endfor %}
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Convert Image to Text</button>
             </fieldset>
         </form>
+        <button type="submit" class="btn btn-primary" value="showAlert" onclick="showAlert();"> Submit Question </button>
+        <div class="container" style="display:none;" id="myAlert">
+            <div class="alert alert-success alert-dismissable" id="myAlert2">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                Success! Question sent successfully.
+            </div>
+
+        </div>
     </div>
+
 
 {% endblock %}

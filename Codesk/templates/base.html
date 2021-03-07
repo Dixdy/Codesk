@@ -33,7 +33,7 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="">Share A Note</a>
+              <a class="nav-link" href="{% url 'uploadnotes' %}">Share A Note</a>
             </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'questionlist' %}">Question List</a>
@@ -114,5 +114,6 @@
             id.innerHTML= $this.text();
         }
     </script>
+    {% block extrascript %} {% endblock %}
 </body>
 </html>
