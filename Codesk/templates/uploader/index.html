@@ -59,6 +59,7 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <div class="custom-file my-2">
+                    {{image_form.image|add_class:"custom-file-input"}}
                     <label class="custom-file-label">{{ image_form.image.label }}</label>
                     {% for error in field.errors %}
                         <span class="badge badge-danger">{{ error }}</span>
