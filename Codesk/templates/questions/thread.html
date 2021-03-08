@@ -5,57 +5,107 @@
     <div class="row pag">
         <div class="col-lg-12 col-lg-offset-0">
             <div class="card">
-            <label style="font-size: 50px; align-self: center;" class="card-title" >Title</label> 
-            <div class="row" style="align-self: center;">
-                <label style="align-self: flex-start;">Tags: </label>
-                <label style="align-self: flex-end;">Author:  </label>
+            {% for q in question %}
+            <label style="font-size: 50px; align-self: center;" class="card-title" id="qnid" value="{{q.id}}">{{q.title}}</label> 
+            <div class="row" style="align-self: inherit;">
+                <div class="col" style="align-self: flex-start;">
+                    <label >Author: {{q.author}}</label>
+                </div>
+                <div class="col" style="align-self: flex-start;">
+                    <label style="align-self: flex-start;">Date Posted: {{q.date_posted}}</label>
+                </div>
+                <div class="col">
+                    <label >Tags: {{q.tags}}</label>
+                </div>
             </div>
+
             <div class="col-lg-12">
-                <p style="font-size: 30px;" class="card-text">Question</p>
+                <p style="font-size: 30px; align-self: center;" class="card-text">{{q.content}}</p>
             </div>
+            {% endfor %}
         </div> 
         </div>
-        <div class="col-lg-12 col-lg-offset-0">
-            <div class="card">
-                comments
-                <button class="btn btn-link" onclick="addcomment()" id="reply">Add Comment</button>
-                <input class="text" id="replyb" hidden ></input>
-                <button class="btn btn-secondary" id="replys" onclick="submitcomment()" style="width: 200px; align-self: flex-end;" hidden>Add Comment</button>
+        <div class="col-lg-12 col-lg-offset-0"> 
+            <div class="card" style="border: hidden;">
+                {% for cmt in qnComments%}
+                <div style="align-self: flex-start; border:black " class="card-text">{{cmt.content}} -- commented by: {{cmt.author}} Posted on: {{cmt.date_posted}} {{cmt.time_posted}}</div>
+                {% endfor %}    
+                <button class="btn btn-link" onclick="addCommentqn()" id="commentqn" style="align-self: flex-end;">Add Comment</button>
+                <form  action="{% url 'thread' %}" method="POST" style="align-content: flex-end;">{% csrf_token %}
+                    <textarea class="text" id="commentqntext" name="qncomment" style="width: 100%;" hidden ></textarea>
+                    <button class="btn btn-secondary" id="commentqnsave" name="submitQnComment" style="width: 200px; align-self: flex-end;" hidden>
+                        Submit</button>
+                </form>
             </div>  
     </div>
 
     <div class="col-lg-12 col-lg-offset-0">
         <h3>  Answers </h3>
-        <div class="card">
-            --Answer--
-            <button class="btn btn-link" onclick="addcomment()" id="reply">Add Comment</button>
-            <input class="text" id="replyb" hidden ></input>
-            <button class="btn btn-secondary" id="replys" onclick="submitcomment()" style="width: 200px; align-self: flex-end;" hidden>Add Comment</button>
+        <div class="container" style="height: fit-content;">
+        {% for ans in answer %}
+            <div class="card" >
+                <label style="align-self: center;" >{{ans.content}}</label>
+                <h5 style="align-self: flex-end;">Answer By:</h5>
+                <label style="align-self: flex-end; font-size: 25px;">{{ans.author}}</label>
+            </div>
+            <div class="card" style="border: hidden;" id="{{ans.id}}">
+                {% for x in comments %}
+                {% for y in x %}                    
+                <div style="align-self: flex-start; border:black " class="card-text">{{y.content}} -- commented by: {{y.author}}</div>
+                {% endfor %}
+                {% endfor %} 
+                    <button class="btn btn-link" onclick="commentAns(id)" id="ans{{ans.id}}" style="align-self: flex-end;"> Add Comment</button>
+                <form  action="{% url 'thread' %}" method="POST">{% csrf_token %}
+                    <textarea class="text" id="anstext{{ans.id}}" name="anstext{{ans.id}}" style="width: 100%;" hidden ></textarea>
+                    <button class="btn btn-secondary" id="submit{{ans.id}}" name="submitAnsComment" style="width: 200px; align-self: flex-end;" value="{{ans.id}}" hidden>
+                        Submit</button>
+                </form>
+            </div>
+        {% endfor %}
         </div>
     </div>
     <div class="col-lg-12 col-lg-offset-0">
-        <div>
-             
-        </div>
-        <h3>Submit Answer</h3><br>
-        <div class="card" >
-            <input class="text" id="Answer" style="width: 100; height: 100;"></input>
-            <button class="btn btn-secondary" id="submitAns" onclick="" style="width: 200px; align-self: flex-end;">Submit</button>
+       <br>
+        <h3>Submit Answer</h3>
+        <div class="card" style="height: fit-content; border: hidden;">
+            <form action="{% url 'thread' %}" method="POST">{% csrf_token %}
+            <textarea class="text" id="Answer" name="AnsText" style="height: 150px; word-wrap:break-word; width: 100%;"></textarea>
+            <button class="btn btn-secondary" id="submitAns" onclick="getqnid(id)" name="addAnswer" style="width: 200px; align-self: flex-end;">Submit</button>
+        </form>
         </div>
     </div>
 </div>
 </div>
 <script type=text/javascript>
-    function addcomment(){
-        document.getElementById("reply").hidden = true;
-        document.getElementById("replyb").hidden = false;
-        document.getElementById("replys").hidden = false;
+    function addCommentqn(){
+        getqnid("commentqnsave");
+        document.getElementById("commentqn").hidden = true;
+        document.getElementById("commentqntext").hidden = false;
+        document.getElementById("commentqnsave").hidden = false;
     }
-    function submitcomment(){
-        document.getElementById("reply").hidden = false;
-        document.getElementById("replyb").hidden = true;
-        document.getElementById("replys").hidden = true;
+    function commentAns(id){
+        var parent = document.getElementById(id).parentNode.id;
+        var x = "ans" + String(parent);
+        var y = "anstext" + String(parent);
+        var z = "submit" + String(parent);
+        ansgetqnid(z);
+        document.getElementById(x).hidden = true;
+        document.getElementById(y).hidden = false;
+        document.getElementById(z).hidden = false;
+
     }
+    function ansgetqnid(id){
+        var x = document.getElementById("qnid");
+        var qnid = x.getAttribute("value");
+        var ansid = document.getElementById(id).value;
+        document.getElementById(id).value = qnid + "," + ansid;
+    }
+    function getqnid(id){
+        var x = document.getElementById("qnid");
+        var qnid = x.getAttribute("value");
+        document.getElementById(id).value = qnid;
+    }
+
 </script>
 
 {% endblock %}
