@@ -2,6 +2,26 @@
 
 {% block title %}Home{% endblock %}
 
+{% load static %}
+
+
 {% block content %}
-<b>You're HOME with CODESK</b>
+
+{% if messages %}
+{% for message in messages %}
+<body onload="myFunction()">
+<script>
+    function myFunction() {
+      alert("{{message}}")
+    }
+</script>
+{% endfor %}
+{% endif %}
+
+<div class="card" style="align-items: center; border: hidden;">
+    <h1 >You're HOME with CODESK</h1>
+
+    <img src="{% static "/Logo.jpg" %}" alt="">
+</div>
+
 {% endblock %}

@@ -9,7 +9,7 @@
         <div class="col-lg-12 col-lg-offset-0">
             {% if question != null %}
                 <div class="card-body">
-                    <h1 class="card-title">Search results on {{searchword}}</h1>
+                    <h1 class="card-title">Search results on "{{searchword}}"</h1>
                 </div>
 
                 <table class="table">
@@ -24,9 +24,9 @@
                         {% for q in question %}
                         <tr>
                             <td>
-                                <a href="">
-                                {{q.title}}
-                                </a>
+                                <form  action= "{% url 'thread' %}" method="GET" >
+                                    <button type="submit" class="btn" value="{{q.id}}" name = "link" style='color:blue;'>{{q.title}}</button>
+                                </form>
                             </td>
                             <td>
                                 {{q.author}}

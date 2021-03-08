@@ -7,12 +7,8 @@ from API import search
 def Profile(request):
     if request.method == "POST":
         if 'searchword' in request.POST:
-            searchkeyword = request.POST.get('search')
-            print(searchkeyword)
-            #context = databasefunction(searchkeyword)
-            context = {'word':searchkeyword}
-            print(context)
-            return render(request, 'home.html', context)
+            context = search.searchbar(request)
+            return render(request, 'results.html', context)
         context = {'text' : "Your profile has been edited!"}
         return render(request, 'profile.html', context)
     return render(request, 'profile.html')

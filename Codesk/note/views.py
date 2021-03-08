@@ -18,4 +18,4 @@ def note(request):
             context = search.searchbar(request)
             return render(request, 'results.html', context)   
             
-    return render(request, 'notes/note.html',  context)
+    return render(request, 'notes/note.html')
