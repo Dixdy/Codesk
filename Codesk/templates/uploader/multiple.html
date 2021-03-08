@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block extrascript %}
+    <script>
+        function showAlert(){
+            if($("#myAlert").find("div#myAlert2").length==0){
+                $("#myAlert").append("<div class='alert alert-success alert-dismissable' id='myAlert2'> <button type='button' class='close' data-dismiss='alert'  aria-hidden='true'>&times;</button> Success! Notes uploaded successfully.</div>");
+            }
+            $("#myAlert").css("display", "");
+        }
+    </script>
+
+{% endblock %}
+
+{% block content %}
+<body>
+<div class="mt-5 text-center">
+    <h1>Share A Note</h1>
+</div>
+<div style="width: 500px; margin: auto;">
+    <fieldset name="Multiple Files Upload">
+        {% if msg %} {% autoescape off %} {{ msg }} {% endautoescape %} {% endif %}
+        <form method="POST" action="/uploadnotes/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <div class="custom-file my-2">
+            <dl>
+                <label>Browse and select one or more files</label>
+                <input type="file" name="files" autocomplete="off" required multiple>
+            </dl>
+                </div>
+            </fieldset>
+                <button type="submit" class = "btn btn-primary" value="showAlert" onclick="showAlert();"> Upload </button>
+                <div class="container" style="display:none;" id="myAlert">
+                    <div class="alert alert-success alert-dismissable" id="myAlert2">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        Success! Notes uploaded successfully.
+                    </div>
+                </div>
+        </form>
+    </fieldset>
+</div>
+</body>
+{% endblock %}
