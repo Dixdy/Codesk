@@ -42,15 +42,18 @@
     <div class="col-lg-12 col-lg-offset-0">
         <h3>  Answers </h3>
         <div class="container" style="height: fit-content;">
+
         {% for ans in answer %}
+        <!--{{ forloop.counter0 }} -->
             <div class="card" >
                 <label style="align-self: center;" >{{ans.content}}</label>
-                <h5 style="align-self: flex-end;">Answer By:</h5>
+                <h5 style="align-self: flex-end;">Answer By: </h5>
                 <label style="align-self: flex-end; font-size: 25px;">{{ans.author}}</label>
             </div>
+
             <div class="card" style="border: hidden;" id="{{ans.id}}">
                 {% for x in comments %}
-                {% for y in x %}                    
+                {% for y in x %}
                 <div style="align-self: flex-start; border:black " class="card-text">{{y.content}} -- commented by: {{y.author}}</div>
                 {% endfor %}
                 {% endfor %} 
