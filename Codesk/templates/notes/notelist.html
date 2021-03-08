@@ -4,16 +4,16 @@
 
 <div class="row">
     <div class="col">
-        <table style="margin-left:auto; margin-right:auto;">
+        <table style="margin-left:auto; margin-right:auto;" id="notelistTable">
             {% for row in notes %}
                 <tr>
                     <td>
                     <form  action= "{% url 'note' %}" method="GET" >
-                        <button type="submit" class="btn" value="{{row.id}}" name = "link" style='color:blue;'>{{row.title}}</button>
+                        <button type="submit" class="btn btn-link" value="{{row.id}}" name ="id">{{row.title}}</button>
                         <br>
-                        <label>{{row.tag}}</label>
+                        <label>Tags: {{row.tag}}</label>
                         <br>
-                        <label>{{row.author}}</label>
+                        <label>Author: {{row.author}}</label>
                         <br>
                     </form>
                     </td>
@@ -44,6 +44,20 @@
             </tr>
         </table>
     </div>
-</div>
+</div>  
+
+<script>
+    document.getElementById("notelistTable").addEventListener("load", sampleList("notelistTable"));
+    function sampleList(id){
+        var tableid = document.getElementById(id);
+        if(tableid.childNodes.id == null){
+            var samplerow = tableid.insertRow(0);
+            var samplecell = samplerow.insertCell(0);
+            samplecell.innerHTML = "<td> <form action= '{% url 'note' %}' method='GET' >" +
+                                    "<button type='submit' class='btn btn-link' value='sample' name = 'id'> To sample </button>" +
+                                    "<br>" + "<label>Tag: sample tags </label>" + "<br>" + "<label>Author: sampleuser </label>";
+        }
+    }
+</script>
 
 {% endblock %}
