@@ -26,7 +26,7 @@ def searchQuestionComment(idx):
 #Add an answer to a question using content, belongs_to and author
 #belongs_to refer to the content of the question
 def addAnswer(cnt, qn, aut):
-    newAnswer = a(content=cnt, belongs_to=q.objects.get(content=qn), author=aut)
+    newAnswer = a(content=cnt, belongs_to=q.objects.get(id=qn), author=aut)
     newAnswer.save()
 
 #Search for the answer of the question
@@ -38,7 +38,7 @@ def searchAnswer(idx):
 #Search for the comment of the answer
 #idx refer to the index of the answer
 def searchAnswerComment(idx):
-    return ac.objects.filter(content=a.objects.get(id=idx))
+    return ac.objects.filter(belongs_to=a.objects.get(id=idx))
 
 #Adding a new notes
 def addNotes(cc, tle, cnt, aut):
@@ -69,3 +69,18 @@ def allNotes():
 
 def allQuestions():
     return q.objects.all()
+
+def searchQuestionID(idx):
+    return q.objects.filter(id=idx)
+
+#Adding a new comment for question
+#cnt = content of the comment, qid = question id the comment belongs to, aut = user that posted the comment request.user
+def addQuestionComment(cnt, qid, aut):
+    newQuestionComment = qc(content=cnt, belongs_to=q.objects.get(id=qid), author=aut)
+    newQuestionComment.save()
+
+#Add a new comment for answer
+#cnt = content of the comment, aid = answer id the comment belongs to, aut = user that posted the comment request.user
+def addAnswerComment(cnt, aid, aut):
+    newAnswerComment = ac(content=cnt, belongs_to=a.objects.get(id=aid), author=aut)
+    newAnswerComment.save()
