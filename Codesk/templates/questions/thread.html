@@ -54,7 +54,7 @@
             <div class="card" style="border: hidden;" id="{{ans.id}}">
                 {% for x in comments %}
                 {% for y in x %}
-                <div style="align-self: flex-start; border:black " class="card-text">{{y.content}} -- commented by: {{y.author}}</div>
+                <div style="align-self: flex-start; border:black " class="card-text">{{y.content}} -- commented by: {{y .author}}</div>
                 {% endfor %}
                 {% endfor %} 
                     <button class="btn btn-link" onclick="commentAns(id)" id="ans{{ans.id}}" style="align-self: flex-end;"> Add Comment</button>
