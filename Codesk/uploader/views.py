@@ -4,8 +4,15 @@ from uploader.models import ImageFile
 import pytesseract
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
+from API import search
 
 def uploadquestion(request):
+    if request.method == "POST":
+        if 'searchword' in request.POST:
+            context = search.searchbar(request)
+            return render(request, 'results.html', context)   
+
+
     data = dict()
     pytesseract.pytesseract.tesseract_cmd = 'C:\Program Files\Tesseract-OCR\\tesseract.exe'
     image_form = ImageFileForm(request.POST or None, request.FILES or None)
@@ -29,13 +36,17 @@ def uploadquestion(request):
 @ensure_csrf_cookie
 def upload_multiple_files(request):
     if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        files = request.FILES.getlist('files')
-        if form.is_valid():
-            for f in files:
-                handle_uploaded_file(f)
-            context = {'msg' : '<span style="color: green;">File successfully uploaded</span>'}
-            return render(request, "uploader/multiple.html", context)
+        if 'searchword' in request.POST:
+            context = search.searchbar(request)
+            return render(request, 'results.html', context)
+        else:   
+            form = UploadFileForm(request.POST, request.FILES)
+            files = request.FILES.getlist('files')
+            if form.is_valid():
+                for f in files:
+                    handle_uploaded_file(f)
+                context = {'msg' : '<span style="color: green;">File successfully uploaded</span>'}
+                return render(request, "uploader/multiple.html", context)
     else:
         form = UploadFileForm()
     return render(request, 'uploader/multiple.html', {'form': form})

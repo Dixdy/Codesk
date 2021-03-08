@@ -29,13 +29,16 @@
             <div class="card" style="border: hidden;">
                 {% for cmt in qnComments%}
                 <div style="align-self: flex-start; border:black " class="card-text">{{cmt.content}} -- commented by: {{cmt.author}} Posted on: {{cmt.date_posted}} {{cmt.time_posted}}</div>
-                {% endfor %}    
+                {% endfor %}   
+                
+            {% if user.is_authenticated %} 
                 <button class="btn btn-link" onclick="addCommentqn()" id="commentqn" style="align-self: flex-end;">Add Comment</button>
                 <form  action="{% url 'thread' %}" method="POST" style="align-content: flex-end;">{% csrf_token %}
                     <textarea class="text" id="commentqntext" name="qncomment" style="width: 100%;" hidden ></textarea>
                     <button class="btn btn-secondary" id="commentqnsave" name="submitQnComment" style="width: 200px; align-self: flex-end;" hidden>
                         Submit</button>
                 </form>
+                {% endif %}
             </div>  
     </div>
 
@@ -57,12 +60,15 @@
                 <div style="align-self: flex-start; border:black " class="card-text">{{y.content}} -- commented by: {{y.author}}</div>
                 {% endfor %}
                 {% endfor %} 
+                
+            {% if user.is_authenticated %}
                     <button class="btn btn-link" onclick="commentAns(id)" id="ans{{ans.id}}" style="align-self: flex-end;"> Add Comment</button>
                 <form  action="{% url 'thread' %}" method="POST">{% csrf_token %}
                     <textarea class="text" id="anstext{{ans.id}}" name="anstext{{ans.id}}" style="width: 100%;" hidden ></textarea>
                     <button class="btn btn-secondary" id="submit{{ans.id}}" name="submitAnsComment" style="width: 200px; align-self: flex-end;" value="{{ans.id}}" hidden>
                         Submit</button>
                 </form>
+                {% endif %}
             </div>
         {% endfor %}
         </div>
@@ -71,10 +77,15 @@
        <br>
         <h3>Submit Answer</h3>
         <div class="card" style="height: fit-content; border: hidden;">
+            
+            {% if user.is_authenticated %}
             <form action="{% url 'thread' %}" method="POST">{% csrf_token %}
             <textarea class="text" id="Answer" name="AnsText" style="height: 150px; word-wrap:break-word; width: 100%;"></textarea>
             <button class="btn btn-secondary" id="submitAns" onclick="getqnid(id)" name="addAnswer" style="width: 200px; align-self: flex-end;">Submit</button>
         </form>
+        {% else %}
+        <div class="card-text">Login to add a comment or post a answer</div>
+        {% endif %}
         </div>
     </div>
 </div>
