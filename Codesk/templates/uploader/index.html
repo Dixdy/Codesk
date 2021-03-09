@@ -45,14 +45,30 @@
     <div class="mt-5 text-center">
         <h1>Ask A Question</h1>
     </div>
-    <div class="input-group input-group-lg">
+    <form action="#postqn" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="input-group input-group-lg">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroup-sizing-lg">Enter title</span>
+            </div>
+            <textarea class="form-control" aria-label="With textarea" name="titletxt" rows="1"></textarea>
+        <div class="input-group input-group-lg">
         <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-lg">Enter text</span>
         </div>
-        <textarea class="form-control" aria-label="With textarea" id="txtbx" rows="10">{% with image_last as ocr_text %}{% with ocr_text.ocrtext_set.last as test %}{{test.text}}{% endwith %}
+        <textarea class="form-control" aria-label="With textarea" name="txtbx" rows="10">{% with image_last as ocr_text %}{% with ocr_text.ocrtext_set.last as test %}{{test.text}}{% endwith %}
         {% endwith %} </textarea>
     </div>
-    </div>
+        <div class="offset-md-2 col-md-8 my-2">
+            <button type="submit" class = "btn btn-primary" name="submitqn" value="showAlert" onclick="showAlert();" >Submit Question</button>
+            <div class="container" style="display:none;" id="myAlert">
+                <div class="alert alert-success alert-dismissable" id="myAlert2">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    Success! Question sent successfully.
+                </div>
+            </div>
+        </div>
+    </form>
 
     <div class="offset-md-2 col-md-8 my-5" id="image_form">
         <form action="#image_form" method="POST" enctype="multipart/form-data">
@@ -68,14 +84,6 @@
                 <button type="submit" class="btn btn-primary">Convert Image to Text</button>
             </fieldset>
         </form>
-        <button type="submit" class="btn btn-primary" value="showAlert" onclick="showAlert();"> Submit Question </button>
-        <div class="container" style="display:none;" id="myAlert">
-            <div class="alert alert-success alert-dismissable" id="myAlert2">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                Success! Question sent successfully.
-            </div>
-
-        </div>
     </div>
 
 

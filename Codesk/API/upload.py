@@ -25,3 +25,11 @@ def submitAnswer(request):
     cnt = request.POST.get('AnsText')
     print(cnt)
     addAnswer(cnt, idx, request.user)
+
+
+def uploadQn(request):
+    cc = "test"
+    tle = request.POST.get('titletxt')
+    cnt = request.POST.get('txtbx')
+    print(cnt)
+    addQuestion(cc, tle, cnt, request.user)
