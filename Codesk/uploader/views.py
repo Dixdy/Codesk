@@ -4,13 +4,18 @@ from uploader.models import ImageFile
 import pytesseract
 from django.http import HttpResponseRedirect
 from django.views.decorators.csrf import ensure_csrf_cookie
-from API import search
+from API import search, upload
 
 def uploadquestion(request):
     if request.method == "POST":
         if 'searchword' in request.POST:
             context = search.searchbar(request)
-            return render(request, 'results.html', context)   
+            return render(request, 'results.html', context)
+
+    if request.method == 'POST':
+        if 'submitqn' in request.POST:
+            upload.uploadQn(request)
+            return render(request, "uploader/index.html")
 
 
     data = dict()
