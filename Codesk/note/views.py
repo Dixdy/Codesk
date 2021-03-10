@@ -17,5 +17,8 @@ def note(request):
         if 'searchword' in request.POST:
             context = search.searchbar(request)
             return render(request, 'results.html', context)   
-            
-    return render(request, 'notes/note.html')
+    if request.method == "GET":
+        if 'id' in request.GET:
+            idx = request.GET.get('id')
+            context = search.notebyId(request,idx)
+            return render(request, 'notes/note.html', context)

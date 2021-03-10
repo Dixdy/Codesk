@@ -73,6 +73,8 @@ def allQuestions():
 def searchQuestionID(idx):
     return q.objects.filter(id=idx)
 
+def searchNoteID(idx):
+    return n.objects.filter(id=idx)
 #Adding a new comment for question
 #cnt = content of the comment, qid = question id the comment belongs to, aut = user that posted the comment request.user
 def addQuestionComment(cnt, qid, aut):
