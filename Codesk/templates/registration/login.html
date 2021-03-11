@@ -10,7 +10,18 @@
   </p>
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% if msg == 'Failed' %}
+    <p style="color: red;">Invalid username and/or password!</p>
+    <p style="color: red;">Username and password are case sensitive!</p>
+    {% endif %}
+    <div class="form-group">
+        <label for="uname">Username:</label>
+        <input type="text" placeholder="Enter Username" name="uname" required>
+    </div>
+    <div class="form-group">
+        <label for="psw">Password:</label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+    </div>
     <button class="btn btn-secondary" type="submit">Log In</button>
   </form>
 </div>
