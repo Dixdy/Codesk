@@ -9,9 +9,9 @@
 
 {% if messages %}
 {% for message in messages %}
-<body onload="myFunction()">
+<body onload="loggedOut()">
 <script>
-    function myFunction() {
+    function loggedOut() {
       alert("{{message}}")
     }
 </script>

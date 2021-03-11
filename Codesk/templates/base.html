@@ -38,11 +38,11 @@
             </li>
             {% else %}
               <li class="nav-item">
-                <a class="nav-link" href="" onclick="LoginQnNote()" >Ask A Question</a>
+                <a class="nav-link" href="" onclick="notLoggedIn()" >Ask A Question</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-link" href="" onclick="LoginQnNote()">Share A Note</a>
+                <a class="nav-link" href="" onclick="notLoggedIn()">Share A Note</a>
               </li>
               {% endif %}
               <li class="nav-item">
@@ -82,7 +82,7 @@
             </li> 
             {% else %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'login' %}">Login</a>
+              <a class="nav-link" href="{% url 'userLogin' %}">Login</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'signup' %}">Resigter</a>
@@ -123,8 +123,8 @@
             var id = document.getElementById("ddlv");
             id.innerHTML= $this.text();
         }
-        function LoginQnNote() {
-          alert("Please login to post a question or note!")
+        function notLoggedIn() {
+          alert("Please login to access this function!")
         }
     </script>
     {% block extrascript %} {% endblock %}
