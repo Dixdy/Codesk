@@ -2,14 +2,18 @@
 {% block title %} Note {% endblock %}
 {% block content %}
 <div class="row">
-    <div class="col">
-        <table style="margin-left:auto; margin-right:auto;">
-                <tr>
-                    <td>
-                        <h1> THIS IS A NOTE </h1>
-                    </td>
-                </tr>
-        </table>
+    <div class="col" style="margin-left:25%; margin-right:auto;">
+        {% for notes in note %}
+        <h1> {{notes.title}} </h1>
+        <label>Author: {{notes.author}} </label>
+        <br>
+        <label>Course Code: {{notes.coursecode}} </label>
+        <br>
+        <label>Date Posted: {{notes.date_posted}} </label>
+        <div class="card" style="align-items: center;">
+            <label>{{notes.content}}</label>
+        </div>
+        {% endfor %}
     </div>
     <div class="col">
         <table style="margin-left:auto; margin-right:auto;">

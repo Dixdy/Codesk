@@ -42,3 +42,9 @@ def qnthread(request, idx):
 
     return context
 
+def notebyId(request, idx):
+    note = searchNoteID(idx)
+    context = {'note': note}
+    print(context)
+    return context
+
