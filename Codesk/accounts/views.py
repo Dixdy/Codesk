@@ -29,3 +29,4 @@ def userLogin(request):
             return redirect('home')
         else:
             messages.info(request, 'Login failed')
+            print("zxzycxz")
