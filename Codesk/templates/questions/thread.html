@@ -18,7 +18,6 @@
                     <label >Course Code: {{q.coursecode}}</label>
                 </div>
             </div>
-
             <div class="col-lg-12">
                 <p style="font-size: 30px; align-self: center;" class="card-text">{{q.content}}</p>
             </div>
@@ -28,7 +27,14 @@
         <div class="col-lg-12 col-lg-offset-0"> 
             <div class="card" style="border: hidden;">
                 {% for cmt in qnComments%}
-                <div style="align-self: flex-start; border:black " class="card-text">{{cmt.content}} -- commented by: {{cmt.author}} Posted on: {{cmt.date_posted}} {{cmt.time_posted}}</div>
+                <div style="align-self: flex-start; border:black " class="card-text">{{cmt.content}} -- commented by: {{cmt.author}} Posted on: {{cmt.date_posted}} {{cmt.time_posted}}
+                {% if user.is_authenticated %}
+                            {% if user.username == cmt.author|stringformat:"s" %}
+                                <button class="btn btn-link">Edit</button>
+                                <button class="btn btn-link" style="color:red">Delete</button>
+                            {% endif %}
+                {% endif %}
+            </div>
                 {% endfor %}   
                 
             {% if user.is_authenticated %} 
@@ -38,6 +44,7 @@
                     <button class="btn btn-secondary" id="commentqnsave" name="submitQnComment" style="width: 200px; align-self: flex-end;" hidden>
                         Submit</button>
                 </form>
+                
                 {% endif %}
             </div>  
     </div>
@@ -47,17 +54,51 @@
         <div class="container" style="height: fit-content;">
 
         {% for ans in answer %}
+        {% if user.is_authenticated %}
+        <div class="row">
+        <div class="col-0" style="align-items: center;">
+            
+            <div class="row">
+                <button class="btn btn-primary">&#8593;</button>
+            </div>
+            <div class="row" style="align-content: center;">
+                    {{ans.votes}}
+            </div>
+            <div class="row">
+                    <button class="btn btn-primary">&#8595;</button>
+            </div>
+
+        </div>
+        
+        {% endif %}
+        <div class="col">
         <!--{{ forloop.counter0 }} -->
             <div class="card" >
+                
                 <label style="align-self: center;" >{{ans.content}}</label>
                 <h5 style="align-self: flex-end;">Answer By: </h5>
                 <label style="align-self: flex-end; font-size: 25px;">{{ans.author}}</label>
-            </div>
-
+                {% if user.is_authenticated %}
+                        {% if user.username == ans.author|stringformat:"s" %}
+                            <button class="btn btn-link"style="align-self: flex-end;">Edit</button>
+                            <button class="btn btn-link"style="align-self: flex-end; color:red">Delete</button>
+                        {% endif %}
+                {% endif %}
+                </div>
+        </div>
+    </div>
             <div class="card" style="border: hidden;" id="{{ans.id}}">
                 {% for x in comments %}
                 {% for y in x %}
-                <div style="align-self: flex-start; border:black " class="card-text">{{y.content}} -- commented by: {{y.author}}</div>
+                <div style="align-self: flex-start; border:black " class="card-text">{{y.content}} -- commented by: {{y.author}}
+
+                {% if user.is_authenticated %}
+                        {% if user.username == y.author|stringformat:"s" %}
+                            <button class="btn btn-link">Edit</button>
+                            <button class="btn btn-link" style="color:red">Delete</button>
+                        {% endif %}
+                {% endif %}
+            </div>
                 {% endfor %}
                 {% endfor %} 
                 

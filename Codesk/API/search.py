@@ -3,9 +3,14 @@ from django import forms
 from API.database import *
 
 def searchbar(request):
-    searchkeyword = request.POST.get('search')
-    questionlist = searchQuestion(searchkeyword)
-    context = {'searchword':searchkeyword, 'question': questionlist}
+
+    if request.POST.get('search'):
+        searchkeyword = request.POST.get('search')
+        questionlist = searchQuestion(searchkeyword)
+        context = {'searchword':searchkeyword, 'question': questionlist}
+    else:
+        questionlist = allQuestions()
+        context = {'searchword':" ", 'question': questionlist}
     print(context)
     return context
 

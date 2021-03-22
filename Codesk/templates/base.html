@@ -71,7 +71,9 @@
                 </div>
               </div>
           </form>
-
+          <li class="nav-item">
+            <button type="submit" class="btn btn-primary" name="searchimage" >SearchByImage {% csrf_token %}</button>
+          </li>
             <ul class="navbar-nav mr-auto ">
             {% if user.is_authenticated %}
             <li class="nav-item">
